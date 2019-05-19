@@ -1,10 +1,9 @@
 # Your Project Title
 
-Name: Your full name here
+Name: Shiva Maharjan
+CollegeID: 130629 
 
-CollegeID: Your college ID
-
-Batch: Jan19A/19B/19C/19D
+Batch: 19B
 
 
 # Frontend code architecture
