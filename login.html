@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Fee Management System</title>
+</head>
+<body>
+    <div>
+        <div>
+                <span>Username:</span>
+                <input id="username" type="text"/>
+        </div>
+        <div>
+                <span>Password:</span>
+                <input id="password" type="password"/>
+        </div>
+        <div>
+                <button id = 'btnLogin'>Login</button>
+        </div>
+    </div>
+
+
+    <script>
+        window.onload = function(){
+            const loginbtn = document.getElementById('btnLogin');
+
+            loginbtn.addEventListener('click', function(){
+            const userNameNode = document.getElementById('username');
+            const passWordNode = document.getElementById('password');
+            const username = userNameNode.value;
+            const password = passWordNode.value;
+                
+                fetch('http://localhost:3000/login',{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username:username,
+                        password:password
+                    })
+                })
+                .then(data =>{
+                    return data.json();
+                })
+                .then(json =>{
+                    if(json.success === 'true'){
+                        localStorage.setItem('Token', json.accessToken);
+                        alert(json.accessToken);
+                        window.location.href = 'dashboard.html'
+                    }
+                    else{
+                        alert('user not found');
+                    }
+                })
+                .catch(err =>{
+                    console.log(err)
+                })
+            })
+        }
+        </script>
+
+</body>
+</html>
