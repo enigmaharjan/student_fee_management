@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Fee Management System</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <select id="select"></select>
+        </div>
+        <div>
+            <button id="search">Search</button>
+        </div>
+        <div>
+            <select id="select_student" required aria-placeholder="Click Search Button First"></select>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const url = "http://localhost:3000/"
+
+            fetch(url + 'api/batch', {
+                headers: {
+                    "authorization": localStorage.getItem('Token')
+                }
+            })
+                .then(data => {
+                    return data.json()
+                })
+                .then(json => {
+                    const list = document.getElementById('list');
+                    const select = document.getElementById('select');
+                    for (let i = 0; i < json.length; i++) {
+                        const option = document.createElement('OPTION'),
+                            txt = document.createTextNode(json[i].batch_name);
+                        option.appendChild(txt);
+                        option.setAttribute("value", json[i]);
+                        select.insertBefore(option, select.lastChild);
+                    }
+                });
+
+            async function onClick(event) {
+                const val = select.selectedIndex;
+                const batch = select.options[val].innerText;
+                // console.log(url + 'api/fee/' + batch +'/1')
+                await fetch(url + 'api/fee/' + batch + '/1')
+                    .then(data => {
+                        return data.json()
+                    })
+                    .then(json => {
+                        // const select_student = document.getElementById('select_student');
+                        // select_student.options.length = null;  //to clear the elements in drop down menu.
+                        // for (let i = 0; i < json.length; i++) {
+                        //     const option = document.createElement('OPTION'),
+                        //         txt = document.createTextNode(json[i].student_id);
+                        //     option.appendChild(txt);
+                        //     option.setAttribute("value", json[i]);
+                        //     select_student.insertBefore(option, select_student.firstChild);
+                        // }
+                        let btnz = document.createElement("div");
+                        btnz.innerHTML= null;
+                        // let txt = "";
+                        let text = "";
+                        //
+                        for (let x = 0; x < json.length; x++) {
+
+                            text += "<div id = 'main'>";
+                            text += "<p id = 'source'>Student ID: " + "<a href='" + json[x].student_id + "'>" + json[x].student_id + "</a></p>";
+                            const id = json[x].student_id;
+
+                            let a = fetch(url + 'api/students/' + id)
+                                .then(data => {
+                                    return data.json()
+                                })
+                                .then(json => {
+                                    text += "<p id = 'source'>Name: " + json[0].student_name + "</p>";
+                                    btnz.innerHTML = text;      //showing name in the page
+                                    
+                                    return btnz;
+
+                                })
+                                .catch(err => {
+                                    return err;
+                                })
+                                text += a;
+                            text += "<h3 id = 'title'>Amount: " + json[x].amount + "</h3>";
+                            text += "<button>Click</button>"
+                            text += "</div>"
+                        }
+                        btnz.innerHTML = text;
+                        document.body.appendChild(btnz);
+
+
+                        //
+
+
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        alert(error)
+                    })
+            }
+            function getStudent(student_id) {
+                fetch(url + 'api/students/' + student_id)
+                    .then(data => {
+                        return data.json()
+                    })
+                    .then(json => {
+                        // console.log(text)
+                        return json;
+
+                        // alert(json[0].student_name)
+                        // return json[0].student_name
+
+
+                    })
+                    .catch(err => {
+                        return err;
+                    })
+            }
+
+
+            const searchButton = document.getElementById('search');
+            searchButton.addEventListener('click', onClick)
+
+        }
+    </script>
+</body>
+
+</html>
