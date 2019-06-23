@@ -34,6 +34,10 @@
                     return data.json()
                 })
                 .then(json => {
+                    if (json.name === "JsonWebTokenError") {
+                        alert("You are not authorized.\nPlease Login First")
+          window.location.href = 'index.html';
+        }
                     const list = document.getElementById('list');
                     const select = document.getElementById('select');
                     for (let i = 0; i < json.length; i++) {
@@ -48,8 +52,13 @@
             async function onClick(event) {
                 const val = select.selectedIndex;
                 const batch = select.options[val].innerText;
+
+                let btnz = document.createElement("div");
+                        // let txt = "";
+                        let text = "";
+                        let  student_name = " ";
                 // console.log(url + 'api/fee/' + batch +'/1')
-                await fetch(url + 'api/fee/' + batch + '/1')
+                 fetch(url + 'api/fee/' + batch + '/0')
                     .then(data => {
                         return data.json()
                     })
@@ -63,32 +72,34 @@
                         //     option.setAttribute("value", json[i]);
                         //     select_student.insertBefore(option, select_student.firstChild);
                         // }
-                        let btnz = document.createElement("div");
-                        btnz.innerHTML= null;
-                        // let txt = "";
-                        let text = "";
-                        //
-                        for (let x = 0; x < json.length; x++) {
+                        
+                        for  (let x = 0; x < json.length; x++) {
 
                             text += "<div id = 'main'>";
-                            text += "<p id = 'source'>Student ID: " + "<a href='" + json[x].student_id + "'>" + json[x].student_id + "</a></p>";
                             const id = json[x].student_id;
-
-                            let a = fetch(url + 'api/students/' + id)
+                            let a = JSON.stringify(getStudent(id))
+                            text += "<p id = 'source'>Student ID: " + "<a href='" + a + "'>" + json[x].student_id + "</a></p>";
+   
+                             fetch(url + 'api/students/' + id)
                                 .then(data => {
                                     return data.json()
                                 })
                                 .then(json => {
                                     text += "<p id = 'source'>Name: " + json[0].student_name + "</p>";
-                                    btnz.innerHTML = text;      //showing name in the page
-                                    
-                                    return btnz;
+                                    btnz.innerHTML = text;       //showing name in the page
+                                    student_name = json[0].student_name ;
+                                    // return {data : JSON.stringify(json[0])};
+                                    // return {data : json[0]};
+                                    // alert(JSON.stringify(json[0])); 
+                                    return student_name;
 
                                 })
                                 .catch(err => {
                                     return err;
                                 })
-                                text += a;
+                                text += "<p id = 'source'>Name: " +  student_name + "a"+ "</p>";
+                                // alert(JSON.stringify(a))
+                                // text += JSON.stringify(a.student_name);?
                             text += "<h3 id = 'title'>Amount: " + json[x].amount + "</h3>";
                             text += "<button>Click</button>"
                             text += "</div>"
@@ -106,17 +117,26 @@
                         alert(error)
                     })
             }
-            function getStudent(student_id) {
-                fetch(url + 'api/students/' + student_id)
+            async function getStudent(student_id) {
+                await fetch(url + 'api/students/' + student_id)
                     .then(data => {
                         return data.json()
                     })
                     .then(json => {
-                        // console.log(text)
-                        return json;
-
+                        // console.log("text")
+                                    // text += "<p id = 'source'>Name: " + JSON.stringify(json[0].student_name) + "</p>";
+                                    // btnz.innerHTML = text;
+                        //             // document.body.appendChild(btnz);
+                        //             // return text;     //showing name in the page
+                        // // return json;
+                        // console.log(json[0].student_name)
+                        // // texts = JSON.stringify(json[0].student_name);
+                        // // return texts;
                         // alert(json[0].student_name)
-                        // return json[0].student_name
+                        const resp = json[0].student_name;
+                        alert(resp)
+                        return resp.json()
+                        // // return (json[0].student_name)
 
 
                     })

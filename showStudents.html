@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Fee Management System</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <select id="select"></select>
+        </div>
+        <div>
+            <button id="search">Search</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const url = "http://localhost:3000/"
+
+            fetch(url + 'api/batch', {
+                headers: {
+                    "authorization": localStorage.getItem('Token')
+                }
+            })
+                .then(data => {
+                    return data.json()
+                })
+                .then(json => {
+                    if (json.name === "JsonWebTokenError") {
+                        alert("You are not authorized.\nPlease Login First")
+          window.location.href = 'index.html';
+        }
+                    const list = document.getElementById('list');
+                    const select = document.getElementById('select');
+                    for (let i = 0; i < json.length; i++) {
+                        const option = document.createElement('OPTION'),
+                            txt = document.createTextNode(json[i].batch_name);
+                        option.appendChild(txt);
+                        option.setAttribute("value", json[i]);
+                        select.insertBefore(option, select.lastChild);
+                    }
+                });
+
+            async function onClick(event) {
+                const val = select.selectedIndex;
+                const batch = select.options[val].innerText;
+
+                let btnz = document.createElement("div");
+                let text = "";
+                fetch(url + 'api/students/batch/' + batch)
+                    .then(data => {
+                        return data.json()
+                    })
+                    .then(json => {
+                        for (let x = 0; x < json.length; x++) {
+                            text += "<div id = 'main'>";
+                            text += "<p id = 'source'>Student ID: " + "<a href='" + "'>" + json[x].student_id + "</a></p>";
+                            text += "<p id = 'imgsrc'>"+url+'public/uploads/'+json[x].image_name+"</p>";
+                            text += "<p id = 'source'>Name: " + json[x].student_name + "a" + "</p>";
+                            text += "<h3 id = 'title'>Batch: " + json[x].batch + "</h3>";
+                            text += "<button>Edit</button>"
+                            text += "</div>"
+                        }
+                        btnz.innerHTML = text;
+                        document.body.appendChild(btnz);
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        alert(error)
+                    })
+            }
+            const searchButton = document.getElementById('search');
+            searchButton.addEventListener('click', onClick)
+        }
+    </script>
+
+</body>
+
+</html>

@@ -36,7 +36,6 @@
 
         window.onload = function () {
             const url = "http://localhost:3000/"
-
             fetch(url + 'api/batch', {
                 headers: {
                     "authorization": localStorage.getItem('Token')
@@ -46,6 +45,10 @@
                     return data.json()
                 })
                 .then(json => {
+                    if (json.name === "JsonWebTokenError") {
+                        alert("You are not authorized.\nPlease Login First")
+          window.location.href = 'index.html';
+        }
                     const list = document.getElementById('list');
                     const select = document.getElementById('select');
                     for (let i = 0; i < json.length; i++) {
@@ -55,7 +58,11 @@
                         option.setAttribute("value", json[i]);
                         select.insertBefore(option, select.lastChild);
                     }
-                });
+                })
+                .catch(err =>{
+                    console.log(err);
+                    alert(err)
+                })
 
             function onClick(event) {
                 const val = select.selectedIndex;
