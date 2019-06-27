@@ -151,11 +151,11 @@ window.onload = function () {
                     window.location.href = '/';
                 }
                 for (let i = 0; i < json.length; i++) {
-                    const option = document.createElement('OPTION'),
+                    const option_student = document.createElement('OPTION'),
                         txt = document.createTextNode(json[i].batch_name);
-                    option.appendChild(txt);
-                    option.setAttribute("value", json[i]);
-                    select_student.insertBefore(option, select_student.lastChild);
+                        option_student.appendChild(txt);
+                        option_student.setAttribute("value", json[i]);
+                    select_student.insertBefore(option_student, select_student.lastChild);
                 }
             })
             .catch(err => {
@@ -174,12 +174,12 @@ window.onload = function () {
         const dob = document.getElementById('add_student_date_of_birth').value;
         const djoined = document.getElementById('add_student_date_joined').value;
 
-        const val = select.selectedIndex;
-        const batch = select.options[val].innerText;
+        const val = select_student.selectedIndex;
+        const batch = select_student.options[val].innerText;
         const date_of_birth = showdate(dob);
         const date_joined = showdate(djoined);
 
-        fetch(url_student + 'api/students', {
+        fetch(url + 'api/students', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
