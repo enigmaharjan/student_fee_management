@@ -1,8 +1,10 @@
 window.onload = function () {
+    //setting up the url
+    const url = "http://localhost:3000/";
+
     const select = document.getElementById('select_batch');
 
-    const url = "http://localhost:3000/"
-
+    //getting id for modal
     const modal_add_fee = document.getElementById('add_fee_modal');
     const modal_add_student = document.getElementById('add_student_modal');
 
@@ -76,7 +78,6 @@ window.onload = function () {
 
 
     //for adding fee
-
     function submitFee(event) {
         let amount = document.getElementById('fee_amount').value;
         let feeDate1 = document.getElementById('fee_date');
@@ -113,6 +114,7 @@ window.onload = function () {
             })
             .then(json => {
                 console.log(json)
+                alert("Fee Added.")
                 window.location.href = '/index';
             })
             .catch(err => {
@@ -120,9 +122,6 @@ window.onload = function () {
             })
 
     }
-
-
-    //   getBatchBtn.addEventListener('click', getBatch);
     const addFeeBtn = document.getElementById('submit_fee');
     const student_id = document.getElementById('select_student_fee');
     addFeeBtn.addEventListener('click', submitFee)
@@ -130,6 +129,7 @@ window.onload = function () {
     searchButton.addEventListener('click', onClick)
 
 
+    //js scripts for adding students
     const select_student = document.getElementById('add_student_batch');
     const submitBtn = document.getElementById('add_student_submit');
 
@@ -237,6 +237,7 @@ window.onload = function () {
         return forDate;
     }
 
+    //js script for adding batch
     const addBatch = document.getElementById('submit_batch_name');
     addBatch.addEventListener('click', addBatchName);
 
@@ -262,7 +263,6 @@ window.onload = function () {
             .catch(err => {
                 alert(err);
                 console.log(err);
-                window.location.href = '/index'
             })
     }
 
