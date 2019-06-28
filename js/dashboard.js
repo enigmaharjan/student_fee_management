@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = async function () {
     //setting up the url
     const url = "http://localhost:3000/";
 
@@ -33,11 +33,20 @@ window.onload = function () {
                     window.location.href = '/';
                 }
                 const list = document.getElementById('list');
-                for (let i = 0; i < json.length; i++) {
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const option = document.createElement('OPTION'),
+                            txt = document.createTextNode(json[i].batch_name);
+                        option.appendChild(txt);
+                        option.setAttribute("value", json[i]);
+                        select.insertBefore(option, select.lastChild);
+                    }
+                }
+                else {
                     const option = document.createElement('OPTION'),
-                        txt = document.createTextNode(json[i].batch_name);
+                        txt = "You don't have any class added yet";
                     option.appendChild(txt);
-                    option.setAttribute("value", json[i]);
+                    option.setAttribute("value", 0);
                     select.insertBefore(option, select.lastChild);
                 }
             })
@@ -60,13 +69,23 @@ window.onload = function () {
             .then(json => {
                 const select_student = document.getElementById('select_student_fee');
                 select_student.options.length = null;  //to clear the elements in drop down menu.
-                for (let i = 0; i < json.length; i++) {
+                if (json.length > 0) {
+                    for (let i = 0; i < json.length; i++) {
+                        const option = document.createElement('OPTION'),
+                            txt = document.createTextNode(json[i].student_id);
+                        option.appendChild(txt);
+                        option.setAttribute("value", json[i]);
+                        select_student.insertBefore(option, select_student.firstChild);
+                    }
+                }
+                else {
                     const option = document.createElement('OPTION'),
-                        txt = document.createTextNode(json[i].student_id);
+                        txt = document.createTextNode("No students are in this batch.");
                     option.appendChild(txt);
-                    option.setAttribute("value", json[i]);
+                    option.setAttribute("value", 0);
                     select_student.insertBefore(option, select_student.firstChild);
                 }
+
 
             })
             .catch(error => {
@@ -153,8 +172,8 @@ window.onload = function () {
                 for (let i = 0; i < json.length; i++) {
                     const option_student = document.createElement('OPTION'),
                         txt = document.createTextNode(json[i].batch_name);
-                        option_student.appendChild(txt);
-                        option_student.setAttribute("value", json[i]);
+                    option_student.appendChild(txt);
+                    option_student.setAttribute("value", json[i]);
                     select_student.insertBefore(option_student, select_student.lastChild);
                 }
             })
@@ -266,5 +285,53 @@ window.onload = function () {
             })
     }
 
+    //For side pane
+    const header = {
+        "authorization": localStorage.getItem('Token')
+    }
 
+    const allResponse = await Promise.all([
+        fetch(url + "api/students", {headers:header}),
+        fetch(url + "api/batch", {headers:header}),
+        fetch(url + "api/fee", {headers:header}),
+    ])
+
+    const feeRes = await allResponse[2].json();
+    const batchRes = await allResponse[1].json();
+    const studentRes = await allResponse[0].json();
+
+    const fee_sidePane = document.getElementById('fee_sidePane');
+    const batch_sidePane = document.getElementById('batch_sidePane');
+    const student_sidePane = document.getElementById('student_sidePane');
+    const student_table = document.getElementById('student_details');
+    
+    //showing number of batch 
+    batch_sidePane.innerText = batchRes.length
+    
+    //showing number of students
+    student_sidePane.innerText = studentRes.length
+
+    //showing unpaid amount to sidepane
+    let unPaidAmount = 0;
+    for(let amountCleared = 0; amountCleared<feeRes.length; amountCleared++){
+        
+        if(!feeRes[amountCleared].cleared){
+            unPaidAmount = Number(feeRes[amountCleared].amount) + unPaidAmount;
+        }
+    }
+    console.log(unPaidAmount)
+    fee_sidePane.innerText = unPaidAmount
+
+    //For showing student details in table
+    let txt = '';
+    for (let x = 0; x < studentRes.length; x++) {
+       txt += '<tr>'
+       txt += '<th>'+studentRes[x].student_id+'</th>';
+       txt += '<th>'+studentRes[x].student_name+'</th>';
+       txt += '<th>'+studentRes[x].batch+'</th>';
+       txt += '<th>'+studentRes[x].contact_number+'</th>';
+       txt += '<th></th>';
+       txt += '</tr>';
+       student_table.innerHTML = txt;
+    }
 }

@@ -44,7 +44,10 @@ window.onload = function () {
               })
               .then(json => {
                   const select_student = document.getElementById('select_student_fee');
+                  
                   select_student.options.length = null;  //to clear the elements in drop down menu.
+
+                if(json.length>0){
                   for (let i = 0; i < json.length; i++) {
                       const option = document.createElement('OPTION'),
                           txt = document.createTextNode(json[i].student_id);

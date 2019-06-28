@@ -24,7 +24,7 @@
     <ul class="navbar-nav ml-auto navbar-right">
       <li class="nav-item dropdown mr-3">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-          <i class="fa fa-user"></i> Welcome Brad
+          <i class="fa fa-user"></i> Welcome, <div id="username_header" style="display: inline-block"> </div>
         </a>
         <div class="dropdown-menu">
           <a href="profile.html" class="dropdown-item">
@@ -64,5 +64,21 @@
       },
       false);
   }
+
+  // const uname = document.getElementById('username_header')
+  //   uname.innerText = localStorage.getItem("username");
+
+  fetch("http://localhost:3000/api/students/" + localStorage.getItem("username"))
+  .then(data=>{
+    console.log("im her")
+    console.log(data)
+    return data.json()
+  })
+  .then(json=>{
+    console.log("im her")
+    console.log(json)
+    const uname = document.getElementById('username_header')
+    uname.innerText = json[0].student_name;
+  })
 
 </script>

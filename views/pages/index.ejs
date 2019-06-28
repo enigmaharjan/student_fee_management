@@ -53,85 +53,31 @@
         <div class="col-md-9">
           <div class="card">
             <div class="card-header">
-              <h4>Latest Posts</h4>
+              <h4>Student List</h4>
             </div>
             <table class="table table-striped">
               <thead class="thead-inverse">
                 <tr>
                   <th>#</th>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Date Posted</th>
+                  <th>Student Name</th>
+                  <th>Batch</th>
+                  <th>Contact Number</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td scope="row">1</td>
-                  <td>Post One</td>
-                  <td>Web Development</td>
-                  <td>July 12, 2017</td>
-                  <td><a href="details.html" class="btn btn-secondary">
-                      <i class="fa fa-angle-double-right"></i> Details
-                    </a></td>
-                </tr>
-                <tr>
-                  <td scope="row">2</td>
-                  <td>Post Two</td>
-                  <td>Tech Gadgets</td>
-                  <td>July 13, 2017</td>
-                  <td><a href="details.html" class="btn btn-secondary">
-                      <i class="fa fa-angle-double-right"></i> Details
-                    </a></td>
-                </tr>
-                <tr>
-                  <td scope="row">3</td>
-                  <td>Post Three</td>
-                  <td>Web Development</td>
-                  <td>July 14, 2017</td>
-                  <td><a href="details.html" class="btn btn-secondary">
-                      <i class="fa fa-angle-double-right"></i> Details
-                    </a></td>
-                </tr>
-                <tr>
-                  <td scope="row">4</td>
-                  <td>Post Four</td>
-                  <td>Business</td>
-                  <td>July 14, 2017</td>
-                  <td><a href="details.html" class="btn btn-secondary">
-                      <i class="fa fa-angle-double-right"></i> Details
-                    </a></td>
-                </tr>
-                <tr>
-                  <td scope="row">5</td>
-                  <td>Post Five</td>
-                  <td>Web Development</td>
-                  <td>July 15 2017</td>
-                  <td><a href="details.html" class="btn btn-secondary">
-                      <i class="fa fa-angle-double-right"></i> Details
-                    </a></td>
-                </tr>
-                <tr>
-                  <td scope="row">6</td>
-                  <td>Post Six</td>
-                  <td>Health & Wellness</td>
-                  <td>July 16, 2017</td>
-                  <td><a href="details.html" class="btn btn-secondary">
-                      <i class="fa fa-angle-double-right"></i> Details
-                    </a></td>
-                </tr>
+              <tbody id="student_details">
               </tbody>
+            
             </table>
           </div>
         </div>
         <div class="col-md-3">
           
-
           <div class="card text-center bg-success text-white mb-3">
             <div class="card-body">
-              <h3>Class</h3>
+              <h4>Number of Class</h4>
               <h1 class="display-4">
-                <i class="fa fa-book"></i> 4
+                <i class="fa fa-book"></i> <div id="batch_sidePane" style="display: inline-block"></div>
               </h1>
               <a href="categories.html" class="btn btn-outline-light btn-sm">View</a>
             </div>
@@ -139,9 +85,9 @@
 
           <div class="card text-center bg-primary text-white mb-3">
             <div class="card-body">
-              <h3>Students</h3>
+              <h4>Number of Students</h4>
               <h1 class="display-4">
-                <i class="fa fa-graduation-cap"></i> 6
+                <i class="fa fa-graduation-cap"></i><div id="student_sidePane" style="display: inline-block"></div>
               </h1>
               <a href="posts.html" class="btn btn-outline-light btn-sm">View</a>
             </div>
@@ -149,9 +95,9 @@
 
           <div class="card text-center bg-warning text-white mb-3">
             <div class="card-body">
-              <h3>Fee</h3>
+              <h4>Total Upaid Fee </h4>
               <h1 class="display-4">
-                <i class="fa fa-gbp"></i> 2
+                <i class="fa fa-gbp"></i> <div id="fee_sidePane" style="display: inline-block"></div>
               </h1>
               <a href="users.html" class="btn btn-outline-light btn-sm">View</a>
             </div>
@@ -384,9 +330,8 @@
   <script>
     CKEDITOR.replace('editor1');
   </script>
-  <script src="../../js/dashboard.js">
-
-    
+  <script src="../../js/dashboard.js"></script>
+  <!-- <script src="../../js/sidepane.js"></script> -->
 </script>
 </body>
 
