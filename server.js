@@ -21,8 +21,8 @@ app.get('/', function(req, res) {
 });
 
 // about page 
-app.get('/about', function(req, res) {
-    res.render('pages/about');
+app.get('/student', function(req, res) {
+    res.render('pages/student');
 });
 
 //add student page

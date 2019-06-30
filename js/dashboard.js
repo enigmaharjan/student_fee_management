@@ -14,7 +14,7 @@ window.onload = async function () {
         modal_add_student.addEventListener("click", getBatchForStudent, false);
         console.log('hello')
     } else {
-        modal_add_fee.attachEvent("onclick", getBatch);
+        modal_add_fee.attachEvent("onclick", getBatchForFee);
     }
 
     function getBatchForFee(event) {
@@ -300,6 +300,13 @@ window.onload = async function () {
     const batchRes = await allResponse[1].json();
     const studentRes = await allResponse[0].json();
 
+    //Checking JSON data
+    if (studentRes.name === "JsonWebTokenError") {
+        alert("You are not authorized.\nPlease Login First")
+        window.location.href = '/';
+    }
+
+    //Getting the side pane element 
     const fee_sidePane = document.getElementById('fee_sidePane');
     const batch_sidePane = document.getElementById('batch_sidePane');
     const student_sidePane = document.getElementById('student_sidePane');
@@ -326,11 +333,11 @@ window.onload = async function () {
     let txt = '';
     for (let x = 0; x < studentRes.length; x++) {
        txt += '<tr>'
-       txt += '<th>'+studentRes[x].student_id+'</th>';
-       txt += '<th>'+studentRes[x].student_name+'</th>';
-       txt += '<th>'+studentRes[x].batch+'</th>';
-       txt += '<th>'+studentRes[x].contact_number+'</th>';
-       txt += '<th></th>';
+       txt += '<td>'+studentRes[x].student_id+'</td>';
+       txt += '<td>'+studentRes[x].student_name+'</td>';
+       txt += '<td>'+studentRes[x].batch+'</td>';
+       txt += '<td>'+studentRes[x].contact_number+'</td>';
+       txt += '<td></td>';
        txt += '</tr>';
        student_table.innerHTML = txt;
     }

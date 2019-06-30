@@ -1,0 +1,278 @@
+<!-- views/pages/about.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/head %>
+</head>
+
+<body>
+
+  <header>
+    <% include ../partials/header %>
+  </header>
+
+  <main>
+    <header id="main-header" class="py-2 bg-primary text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1><i class="fa fa-users"></i> Students </h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ACTIONS -->
+    <section id="action" class="py-4 mb-4 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto">
+            <div class="input-group">
+              <span class="input-group-addon">Batch: </span>
+              <select id="select_batch" class="selectpicker form-control" style="height: 38px">
+              </select>&nbsp;
+              <span class="input-group-btn">
+                <button id="btnSearchStudent" class="btn btn-primary">Search</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POSTS -->
+    <section id="posts">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <h4>Student List</h4>
+              </div>
+              <table class="table table-striped">
+                <thead class="thead-inverse">
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Address</th>
+                    <th>Contact</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="student_table">
+                </tbody>
+              </table>
+
+              <nav class="ml-4">
+                <ul class="pagination">
+                  <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                  <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                  <li class="page-item"><a href="#" class="page-link">2</a></li>
+                  <li class="page-item"><a href="#" class="page-link">3</a></li>
+                  <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/ckeditor.js"></script>
+    <!-- <script>
+          CKEDITOR.replace( 'editor1' );
+      </script> -->
+    <script src="../../js/student.js"></script>
+
+  </main>
+
+  <footer>
+    <% include ../partials/footer %>
+  </footer>
+
+  <!-- STUDENT MODAL -->
+  <div class="modal fade" id="addPostModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Student</h5>
+          <button class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div>
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td colspan="1">
+                  <fieldset>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Student ID</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input
+                            id="add_student_id" name="add_student_id" placeholder="Student Id" class="form-control"
+                            required="true" value="" type="number">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Batch</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group">
+                          <span class="input-group-addon" style="max-width: 100%;"><i class="fa fa-list"></i></span>
+                          <select id="add_student_batch" class="selectpicker form-control" style="height: 40px">
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Student Name</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input
+                            id="add_student_name" name="add_student_name" placeholder="Student Name"
+                            class="form-control" required="true" value="" type="text">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Address</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-address-card"></i></span><input id="add_student_address" name="address"
+                            placeholder="Address" class="form-control" required="true" value="" type="text"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Email</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-envelope"></i></span><input id="add_student_email" name="add_student_email"
+                            placeholder="Email" class="form-control" required="true" value="" type="email"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Phone Number</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-phone"></i></span><input id="add_student_contact_number"
+                            name="add_student_contact_number" placeholder="Phone Number" class="form-control"
+                            required="true" value="" type="number">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Guardian Name</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input
+                            id="add_student_guardian_name" name="add_student_guardian_name" placeholder="Guardian Name"
+                            class="form-control" required="true" value="" type="text">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-5 control-label">Guardian Phone Number</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-phone"></i></span><input id="add_student_guardian_contact"
+                            name="add_student_guardian_contact" placeholder="Guardian Phone Number" class="form-control"
+                            required="true" value="" type="number"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Date Of Birth</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-calendar"></i></span><input id="add_student_date_of_birth"
+                            name="add_student_date_of_birth" placeholder="MM/DD/YYY" type="date" class="form-control"
+                            required="true"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Joined Date</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-calendar"></i></span><input id="add_student_date_joined"
+                            name="add_student_date_joined" placeholder="MM/DD/YYY" type="date" class="form-control"
+                            required="true"></div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button id="edit_student_submit" name="submit" type="submit"
+                        class="btn btn-success">Edit</button>
+                      <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <!-- <button id="reset" name="reset" type="reset" class="btn btn-danger">Reset</button> -->
+                    </div>
+                  </fieldset>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    //setting do from modal to variables
+    const student_namedo = document.getElementById('add_student_name');
+    const student_iddo = document.getElementById('add_student_id');
+    const student_batchdo = document.getElementById('add_student_batch');
+    const contactdo = document.getElementById('add_student_contact_number');
+    const addressdo = document.getElementById('add_student_address');
+    const emaildo = document.getElementById('add_student_email');
+    const guardian_namedo = document.getElementById('add_student_guardian_name');
+    const guardian_contactdo = document.getElementById('add_student_guardian_contact');
+    const dobdo = document.getElementById('add_student_date_of_birth');
+    const djoineddo = document.getElementById('add_student_date_joined');
+    
+    async function editStudent_student(id) {  
+      const headers = {
+        "authorization": localStorage.getItem("Token")
+      }
+      try {
+        const studentIdData = await fetch('http://localhost:3000/' + 'api/students/' + id);
+        const studentIdRes = await studentIdData.json();
+        student_namedo.value = studentIdRes[0].student_name;
+        student_iddo.value = studentIdRes[0].student_id;
+        contactdo.value = studentIdRes[0].contact_number;
+        addressdo.value = studentIdRes[0].address;
+        emaildo.value = studentIdRes[0].email;
+        guardian_namedo.value = studentIdRes[0].guardian_name;
+        guardian_contactdo.value = studentIdRes[0].guardian_contact;
+        dobdo.value = studentIdRes[0].date_of_birth;
+        djoineddo.value = studentIdRes[0].date_joined;
+        try {
+          const studentBatchRes = await fetch('http://localhost:3000/api/batch', { headers: headers });
+          const studentBatchData = await studentBatchRes.json();
+          if (studentBatchData.name === "JsonWebTokenError") {
+            alert("You are not authorized.\nPlease Login First")
+            window.location.href = '/';
+          }
+          else {
+            for (let i = 0; i < studentBatchData.length; i++) {
+              const option = document.createElement('OPTION'),
+                txt = document.createTextNode(studentBatchData[i].batch_name);
+              option.appendChild(txt);
+              option.setAttribute("value", studentBatchData[i]);
+              student_batchdo.insertBefore(option, student_batchdo.lastChild);
+            }
+          }
+        }
+        catch (err) {
+          alert(err)
+        }
+      }
+      catch (err) {
+        alert(err)
+      }
+    }
+
+  </script>
+</body>
+
+</html>
