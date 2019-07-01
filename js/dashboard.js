@@ -12,7 +12,6 @@ window.onload = async function () {
     if (typeof window.addEventListener != "undefined") {
         modal_add_fee.addEventListener("click", getBatchForFee, false);
         modal_add_student.addEventListener("click", getBatchForStudent, false);
-        console.log('hello')
     } else {
         modal_add_fee.attachEvent("onclick", getBatchForFee);
     }
@@ -30,7 +29,7 @@ window.onload = async function () {
             .then(json => {
                 if (json.name === "JsonWebTokenError") {
                     alert("You are not authorized.\nPlease Login First")
-                    window.location.href = '/';
+                    window.location.href = '/login';
                 }
                 const list = document.getElementById('list');
                 if (json.length > 0) {
@@ -134,7 +133,7 @@ window.onload = async function () {
             .then(json => {
                 console.log(json)
                 alert("Fee Added.")
-                window.location.href = '/index';
+                window.location.href = '/';
             })
             .catch(err => {
                 console.log(err)
@@ -167,7 +166,7 @@ window.onload = async function () {
             .then(json => {
                 if (json.name === "JsonWebTokenError") {
                     alert("You are not authorized.\nPlease Login First")
-                    window.location.href = '/';
+                    window.location.href = '/login';
                 }
                 for (let i = 0; i < json.length; i++) {
                     const option_student = document.createElement('OPTION'),
@@ -223,7 +222,7 @@ window.onload = async function () {
             .then(json => {
                 console.log(json);
                 alert("You successfully registered.");
-                window.location.href = '/index'
+                window.location.href = '/'
             })
             .catch(err => {
                 alert(err);
@@ -276,7 +275,7 @@ window.onload = async function () {
             })
             .then(json => {
                 alert("Batch added");
-                window.location.href = '/index'
+                window.location.href = '/'
                 return json
             })
             .catch(err => {
@@ -303,7 +302,7 @@ window.onload = async function () {
     //Checking JSON data
     if (studentRes.name === "JsonWebTokenError") {
         alert("You are not authorized.\nPlease Login First")
-        window.location.href = '/';
+        window.location.href = '/login';
     }
 
     //Getting the side pane element 
@@ -326,7 +325,6 @@ window.onload = async function () {
             unPaidAmount = Number(feeRes[amountCleared].amount) + unPaidAmount;
         }
     }
-    console.log(unPaidAmount)
     fee_sidePane.innerText = unPaidAmount
 
     //For showing student details in table

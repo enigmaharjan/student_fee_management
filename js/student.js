@@ -34,7 +34,7 @@ window.onload = async function () {
 
             if (batchRes.name === "JsonWebTokenError") {
                 alert("You are not authorized.\nPlease Login First")
-                window.location.href = '/';
+                window.location.href = '/login';
             }
             else {
                 for (let i = 0; i < batchRes.length; i++) {

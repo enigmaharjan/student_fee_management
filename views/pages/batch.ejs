@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/head %>
+
+  <!------ Include the above in your HEAD tag ---------->
+
+</head>
+
+<body>
+
+  <header>
+    <% include ../partials/header %>
+  </header>
+
+  <header id="main-header" class="py-2 bg-success text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1><i class="fa fa-book"></i> Batch</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ACTIONS -->
+  <section id="action" class="py-4 mb-4 ">
+    
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="posts">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card" style="width: 75%; margin-left: auto; margin-right: auto">
+            <div class="card-header">
+              <h4>Batch List</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>#</th>
+                  <th>Batch Name</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="batch_table">
+              </tbody>
+            </table>
+
+            <nav class="ml-4">
+              <ul class="pagination">
+                <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/popper.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/ckeditor.js"></script>
+  <script>
+    CKEDITOR.replace('editor1');
+  </script>
+  <footer>
+    <% include ../partials/footer %>
+  </footer>
+  <!-- BATCH MODAL -->
+  <div class="modal fade" id="addClassModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">Add Batch</h5>
+          <button class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <fieldset>
+            <div class="form-group">
+              <label for="title">Batch Name</label>
+              <input id="add_batch_name" type="text" class="form-control" placeholder="Edit Batch Name">
+            </div>
+            <div class="modal-footer">
+              <button id="edit_batch_name" name="submit" type="submit" class="btn btn-success">Edit</button>
+              <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    const url = "http://localhost:3000/api/batch/";
+
+    //setting do from modal to variables
+    let batch_id = 0;
+
+    const edit_batch = document.getElementById('add_batch_name');
+    async function editBatch(id) {
+      const headers = {
+        "authorization": localStorage.getItem("Token")
+      }
+      try {
+        const batchData = await fetch(url + id);
+        const batchRes = await batchData.json();
+        edit_batch.value = batchRes[0].batch_name;
+        batch_id = id;
+      }
+      catch (err) {
+        alert(err)
+      }
+
+    }
+    async function deleteBatch(id) {
+      if (confirm('Are you sure?')) {
+        const delData = await fetch(url +'delete/'+ id,{
+          method:'delete'
+        })
+        const delRes = await delData;
+        console.log(delRes)
+        if(delRes.status === 200){
+          alert("Deleted Successfully")
+          window.location.href = '/batch'
+        }
+        else{
+          alert("Not Deleted")
+        }
+        
+      }
+    }
+
+
+
+  </script>
+  <script src="../../js/batch.js"></script>
+</body>
+
+</html>

@@ -25,7 +25,7 @@ window.onload = function () {
                     localStorage.setItem('Token', json.accessToken);
                     localStorage.setItem('username', username)
                     alert(json.accessToken);
-                    window.location.href = '/index'
+                    window.location.href = '/'
                 }
                 else {
                     alert('Invalid Credentials!!');
