@@ -202,8 +202,7 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button id="edit_student_submit" name="submit" type="submit"
-                        class="btn btn-success">Edit</button>
+                      <button id="edit_student_submit" name="submit" type="submit" class="btn btn-success">Edit</button>
                       <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                       <!-- <button id="reset" name="reset" type="reset" class="btn btn-danger">Reset</button> -->
                     </div>
@@ -229,8 +228,8 @@
     const guardian_contactdo = document.getElementById('add_student_guardian_contact');
     const dobdo = document.getElementById('add_student_date_of_birth');
     const djoineddo = document.getElementById('add_student_date_joined');
-    
-    async function editStudent_student(id) {  
+
+    async function editStudent_student(id) {
       const headers = {
         "authorization": localStorage.getItem("Token")
       }
@@ -244,8 +243,10 @@
         emaildo.value = studentIdRes[0].email;
         guardian_namedo.value = studentIdRes[0].guardian_name;
         guardian_contactdo.value = studentIdRes[0].guardian_contact;
-        dobdo.value = studentIdRes[0].date_of_birth;
-        djoineddo.value = studentIdRes[0].date_joined;
+        dobdo.value = intDate(studentIdRes[0].date_of_birth);
+        djoineddo.value = intDate(studentIdRes[0].date_joined);
+        const prevBatch = studentIdRes[0].batch;
+
         try {
           const studentBatchRes = await fetch('http://localhost:3000/api/batch', { headers: headers });
           const studentBatchData = await studentBatchRes.json();
@@ -254,6 +255,12 @@
             window.location.href = '/';
           }
           else {
+            student_batchdo.options.length = null;
+            const option = document.createElement('OPTION'),
+              txt = document.createTextNode(studentIdRes[0].batch);
+            option.appendChild(txt);
+            option.setAttribute("value", studentIdRes[0]);
+            student_batchdo.insertBefore(option, student_batchdo.lastChild);
             for (let i = 0; i < studentBatchData.length; i++) {
               const option = document.createElement('OPTION'),
                 txt = document.createTextNode(studentBatchData[i].batch_name);
@@ -269,6 +276,20 @@
       }
       catch (err) {
         alert(err)
+      }
+      function intDate(date) {
+        var date = new Date(date);
+        var yr = date.getFullYear();
+        var mo = date.getMonth() + 1;
+        if (mo <= 9) {
+          mo = '0' + mo
+        }
+        var day = date.getDate();
+        if (day <= 9) {
+          day = '0' + day
+        }
+        var dt = yr + "-" + mo + "-" + day;
+        return dt
       }
     }
 

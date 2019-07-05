@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+
+    <!------ Include the above in your HEAD tag ---------->
+
+</head>
+
+<body>
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+    <header id="main-header" class="py-2 bg-warning text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><i class="fa fa-gbp"></i> Fee</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ACTIONS -->
+    <section id="action" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 ml-auto"></div>
+                <div class="col-md-2 ml-auto">
+                    <div class="input-group">
+                        <span class="input-group-addon">Fee Status: </span>
+                        <select id="select_fee_type" type="text" class="form-control" placeholder="Search"
+                            style="width: 80px !important; min-width: 80px; max-width: 80px;">
+                            <option value="0">Paid</option>
+                            <option value="1">Due</option>
+                        </select>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-5 ml-auto">
+                    <div class="input-group">
+                        <span class="input-group-addon">Batch: </span>
+                        <select id="select_batch" type="text" class="form-control" placeholder="Search"></select>&nbsp;
+                        <span class="input-group-btn">
+                            <button id="searchForFeeBtn" class="btn btn-warning"> Search</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USERS -->
+    <section id="posts">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 id="fee_title">Fee List</h4>
+                        </div>
+                        <table class="table table-striped">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Student Name</th>
+                                    <th>Amount</th>
+                                    <th>Fee Date</th>
+                                    <th>Due Date</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="fee_table">
+                            </tbody>
+                        </table>
+
+                        <nav class="ml-4">
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FEE MODAL -->
+    <div class="modal fade" id="addFeeModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title">Add Fee</h5>
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer ">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width: 100%;"><i class="fa fa-user"></i>&nbsp;
+                                    Student Name: |<div style="width: 100%;" id="fee_student_name"></div></span>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Amount</label>
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group"><span class="input-group-addon"><i
+                                        class="fa fa-gbp"></i></span><input id="fee_amount" name="amount"
+                                    placeholder="Amount" class="form-control" required="true" value="" type="number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Fee Date</label>
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group"><span class="input-group-addon"><i
+                                        class="fa fa-calendar"></i></span><input id="fee_date" name="fee_date"
+                                    placeholder="MM/DD/YYY" type="date" value="" class="form-control" required="true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Due Date</label>
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group"><span class="input-group-addon"><i
+                                        class="fa fa-calendar"></i></span><input id="due_date" name="due_date"
+                                    placeholder="MM/DD/YYY" type="date" class="form-control" required="true"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="close_btn" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="edit_fee">Edit Fee</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../js/jquery.min.js"></script>
+        <script src="../../js/popper.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace('editor1');
+        </script>
+        <script>
+            const url = 'http://localhost:3000/api/'
+            const fee_student_name = document.getElementById('fee_student_name'); //to set value in the modal span
+            const feeDate = document.getElementById('fee_date');
+            const dueDate = document.getElementById('due_date');
+            const closeBtn = document.getElementById('close_btn');
+            const amount = document.getElementById('fee_amount');
+            async function editFee(id) {
+                const feeData = await fetch(url + 'fee/' + id);
+                const feeRes = await feeData.json();
+                fee_student_name.value = feeRes[0].student_id; //setting up the id of student in fee_student_name DOM so that it can be retrieved while editing fee.
+                document.getElementById('edit_fee').value = feeRes[0].batch //setting up value in the edit_fee button so that the batch can be get
+                const feeStudentData = await fetch(url + 'students/' + feeRes[0].student_id);
+                const feeStudentRes = await feeStudentData.json();
+                fee_student_name.innerHTML = "&nbsp;" + feeStudentRes[0].student_name;
+                amount.value = feeRes[0].amount;
+                closeBtn.value = id;
+                feeDate.value = intDate(feeRes[0].fee_date);
+                dueDate.value = intDate(feeRes[0].due_date);
+            }
+            function intDate(date) {
+                var date = new Date(date);
+                var yr = date.getFullYear();
+                var mo = date.getMonth() + 1;
+                if (mo <= 9) {
+                    mo = '0' + mo
+                }
+                var day = date.getDate();
+                if (day <= 9) {
+                    day = '0' + day
+                }
+                var dt = yr + "-" + mo + "-" + day;
+                return dt
+            }
+        </script>
+        <script src="../../js/fee.js"></script>
+        <footer>
+            <% include ../partials/footer %>
+        </footer>
+
+</body>
+
+</html>

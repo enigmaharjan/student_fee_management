@@ -27,18 +27,20 @@
   <section id="action" class="py-4 mb-4 bg-light">
     <div class="container">
       <div class="row">
-          <div class="col-md-3">
-            <a  href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#addClassModal">
-              <i class="fa fa-plus"></i> Add Class
-            </a>
-          </div>
         <div class="col-md-3">
-          <a id="add_student_modal" href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addPostModal">
+          <a href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#addClassModal">
+            <i class="fa fa-plus"></i> Add Class
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a id="add_student_modal" href="#" class="btn btn-primary btn-block" data-toggle="modal"
+            data-target="#addPostModal">
             <i class="fa fa-plus"></i> Add Student
           </a>
         </div>
         <div class="col-md-3">
-          <a id="add_fee_modal" href="#" class="btn btn-warning btn-block" data-toggle="modal" data-target="#addFeeModal">
+          <a id="add_fee_modal" href="#" class="btn btn-warning btn-block" data-toggle="modal"
+            data-target="#addFeeModal">
             <i class="fa fa-plus"></i> Add Fee
           </a>
         </div>
@@ -67,17 +69,18 @@
               </thead>
               <tbody id="student_details">
               </tbody>
-            
+
             </table>
           </div>
         </div>
         <div class="col-md-3">
-          
+
           <div class="card text-center bg-success text-white mb-3">
             <div class="card-body">
               <h4>Number of Class</h4>
               <h1 class="display-4">
-                <i class="fa fa-book"></i> <div id="batch_sidePane" style="display: inline-block"></div>
+                <i class="fa fa-book"></i>
+                <div id="batch_sidePane" style="display: inline-block"></div>
               </h1>
               <a href="/batch" class="btn btn-outline-light btn-sm">View</a>
             </div>
@@ -87,7 +90,8 @@
             <div class="card-body">
               <h4>Number of Students</h4>
               <h1 class="display-4">
-                <i class="fa fa-graduation-cap"></i><div id="student_sidePane" style="display: inline-block"></div>
+                <i class="fa fa-graduation-cap"></i>
+                <div id="student_sidePane" style="display: inline-block"></div>
               </h1>
               <a href="/student" class="btn btn-outline-light btn-sm">View</a>
             </div>
@@ -97,9 +101,10 @@
             <div class="card-body">
               <h4>Total Upaid Fee </h4>
               <h1 class="display-4">
-                <i class="fa fa-gbp"></i> <div id="fee_sidePane" style="display: inline-block"></div>
+                <i class="fa fa-gbp"></i>
+                <div id="fee_sidePane" style="display: inline-block"></div>
               </h1>
-              <a href="users.html" class="btn btn-outline-light btn-sm">View</a>
+              <a href="/fee" class="btn btn-outline-light btn-sm">View</a>
             </div>
           </div>
         </div>
@@ -126,100 +131,104 @@
             <tbody>
               <tr>
                 <td colspan="1">
-                    <fieldset>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Student ID</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-user"></i></span><input id="add_student_id" name="add_student_id"
-                              placeholder="Student Id" class="form-control" required="true" value="" type="number">
-                          </div>
+                  <fieldset>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Student ID</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input
+                            id="add_student_id" name="add_student_id" placeholder="Student Id" class="form-control"
+                            required="true" value="" type="number">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Batch</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group">
-                            <span class="input-group-addon" style="max-width: 100%;"><i class="fa fa-list"></i></span>
-                            <select class="selectpicker form-control" style="height: 40px" id="add_student_batch">
-                            </select>
-                          </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Batch</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group">
+                          <span class="input-group-addon" style="max-width: 100%;"><i class="fa fa-list"></i></span>
+                          <select class="selectpicker form-control" style="height: 40px" id="add_student_batch">
+                          </select>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Student Name</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-user"></i></span><input id="add_student_name" name="add_student_name"
-                              placeholder="Student Name" class="form-control" required="true" value="" type="text">
-                          </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Student Name</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input
+                            id="add_student_name" name="add_student_name" placeholder="Student Name"
+                            class="form-control" required="true" value="" type="text">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Address</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-address-card"></i></span><input id="add_student_address" name="address"
-                              placeholder="Address" class="form-control" required="true" value="" type="text"></div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Address</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-address-card"></i></span><input id="add_student_address" name="address"
+                            placeholder="Address" class="form-control" required="true" value="" type="text"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Email</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-envelope"></i></span><input id="add_student_email" name="add_student_email"
+                            placeholder="Email" class="form-control" required="true" value="" type="email"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Phone Number</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-phone"></i></span><input id="add_student_contact_number"
+                            name="add_student_contact_number" placeholder="Phone Number" class="form-control"
+                            required="true" value="" type="number">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Email</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-envelope"></i></span><input id="add_student_email" name="add_student_email" placeholder="Email"
-                              class="form-control" required="true" value="" type="email"></div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Guardian Name</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input
+                            id="add_student_guardian_name" name="add_student_guardian_name" placeholder="Guardian Name"
+                            class="form-control" required="true" value="" type="text">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Phone Number</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-phone"></i></span><input id="add_student_contact_number" name="add_student_contact_number"
-                              placeholder="Phone Number" class="form-control" required="true" value="" type="number">
-                          </div>
-                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-5 control-label">Guardian Phone Number</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-phone"></i></span><input id="add_student_guardian_contact"
+                            name="add_student_guardian_contact" placeholder="Guardian Phone Number" class="form-control"
+                            required="true" value="" type="number"></div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Guardian Name</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-user"></i></span><input id="add_student_guardian_name" name="add_student_guardian_name"
-                              placeholder="Guardian Name" class="form-control" required="true" value="" type="text">
-                          </div>
-                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Date Of Birth</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-calendar"></i></span><input id="add_student_date_of_birth"
+                            name="add_student_date_of_birth" placeholder="MM/DD/YYY" type="date" class="form-control"
+                            required="true"></div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-5 control-label">Guardian Phone Number</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-phone"></i></span><input id="add_student_guardian_contact" name="add_student_guardian_contact"
-                              placeholder="Guardian Phone Number" class="form-control" required="true" value=""
-                              type="number"></div>
-                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Joined Date</label>
+                      <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"><span class="input-group-addon"><i
+                              class="fa fa-calendar"></i></span><input id="add_student_date_joined"
+                            name="add_student_date_joined" placeholder="MM/DD/YYY" type="date" class="form-control"
+                            required="true"></div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Date Of Birth</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-calendar"></i></span><input id="add_student_date_of_birth" name="add_student_date_of_birth"
-                              placeholder="MM/DD/YYY" type="date" class="form-control" required="true"></div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-md-3 control-label">Joined Date</label>
-                        <div class="col-md-12 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i
-                                class="fa fa-calendar"></i></span><input id="add_student_date_joined" name="add_student_date_joined"
-                              placeholder="MM/DD/YYY" type="date" class="form-control" required="true"></div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                          <button id="add_student_submit" name="submit" type="submit" class="btn btn-success">Submit</button>
-                          <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <!-- <button id="reset" name="reset" type="reset" class="btn btn-danger">Reset</button> -->
-                        </div>
-                    </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                      <button id="add_student_submit" name="submit" type="submit"
+                        class="btn btn-success">Submit</button>
+                      <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <!-- <button id="reset" name="reset" type="reset" class="btn btn-danger">Reset</button> -->
+                    </div>
+                  </fieldset>
                 </td>
               </tr>
             </tbody>
@@ -241,12 +250,12 @@
           <fieldset>
             <div class="form-group">
               <label for="title">Batch Name</label>
-              <input id="add_batch_name"   type="text" class="form-control" id="batch" placeholder="Insert Batch Name">
+              <input id="add_batch_name" type="text" class="form-control" id="batch" placeholder="Insert Batch Name">
             </div>
             <div class="modal-footer">
-                  <button id="submit_batch_name" name="submit" type="submit" class="btn btn-success">Submit</button>
-                  <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+              <button id="submit_batch_name" name="submit" type="submit" class="btn btn-success">Submit</button>
+              <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
       </div>
     </div>
@@ -261,7 +270,7 @@
           <button class="close" data-dismiss="modal"><span>&times;</span></button>
         </div>
         <div class="modal-body">
-          
+
           <div class="form-group">
             <label class="col-md-3 control-label">Batch</label>
             <div class="col-md-12 inputGroupContainer">
@@ -276,25 +285,26 @@
             <label class="col-md-3 "></label>
             <div class="col-md-12 ">
               <div class="input-group"><button class="col-md-12 " id="search">Search</button>
-              </div></div>
+              </div>
             </div>
+          </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Student ID</label>
             <div class="col-md-12 inputGroupContainer">
-          <div class="input-group">
-            <span class="input-group-addon" style="max-width: 100%;"><i class="fa fa-list"></i></span>
-            <select class="selectpicker form-control" style="height: 40px" id="select_student_fee">
-              <option>Please Select The Batch First And Then Click Search</option>
-            </select>
+              <div class="input-group">
+                <span class="input-group-addon" style="max-width: 100%;"><i class="fa fa-list"></i></span>
+                <select class="selectpicker form-control" style="height: 40px" id="select_student_fee">
+                  <option>Please Select The Batch First And Then Click Search</option>
+                </select>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Amount</label>
             <div class="col-md-12 inputGroupContainer">
-              <div class="input-group"><span class="input-group-addon"><i
-                    class="fa fa-gbp"></i></span><input id="fee_amount" name="amount"
-                  placeholder="Amount" class="form-control" required="true" value="" type="number">
+              <div class="input-group"><span class="input-group-addon"><i class="fa fa-gbp"></i></span><input
+                  id="fee_amount" name="amount" placeholder="Amount" class="form-control" required="true" value=""
+                  type="number">
               </div>
             </div>
           </div>
@@ -302,39 +312,39 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Fee Date</label>
             <div class="col-md-12 inputGroupContainer">
-              <div class="input-group"><span class="input-group-addon"><i
-                    class="fa fa-calendar"></i></span><input id="fee_date" name="fee_date"
-                  placeholder="MM/DD/YYY" type="date" class="form-control" required="true"></div>
+              <div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span><input
+                  id="fee_date" name="fee_date" placeholder="MM/DD/YYY" type="date" class="form-control"
+                  required="true"></div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Due Date</label>
             <div class="col-md-12 inputGroupContainer">
-              <div class="input-group"><span class="input-group-addon"><i
-                    class="fa fa-calendar"></i></span><input id="due_date" name="due_date"
-                  placeholder="MM/DD/YYY" type="date" class="form-control" required="true"></div>
+              <div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span><input
+                  id="due_date" name="due_date" placeholder="MM/DD/YYY" type="date" class="form-control"
+                  required="true"></div>
             </div>
           </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="submit_fee">Add Fee</button>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="submit_fee">Add Fee</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="../../js/jquery.min.js"></script>
-  <script src="../../js/popper.min.js"></script>
-  <script src="../../js/bootstrap.min.js"></script>
-  <script src="../../js/ckeditor.js"></script>
-  <script>
-    CKEDITOR.replace('editor1');
-  </script>
-  <script src="../../js/dashboard.js"></script>
-</script>
-<footer>
-  <% include ../partials/footer %>
-</footer>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace('editor1');
+    </script>
+    <script src="../../js/dashboard.js"></script>
+    </script>
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
 </body>
 
 </html>

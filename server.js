@@ -1,7 +1,7 @@
 // server.js
 // load the things we need
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -25,6 +25,11 @@ app.get('/student', function(req, res) {
 // batch page
 app.get('/batch', function(req, res) {
     res.render('pages/batch');
+});
+
+// fee page
+app.get('/fee', function(req, res) {
+    res.render('pages/fee');
 });
 
 //login page

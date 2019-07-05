@@ -128,9 +128,9 @@
         const delData = await fetch(url +'delete/'+ id,{
           method:'delete'
         })
-        const delRes = await delData;
+        const delRes = await delData.json();
         console.log(delRes)
-        if(delRes.status === 200){
+        if(delRes.status === "deleted"){
           alert("Deleted Successfully")
           window.location.href = '/batch'
         }

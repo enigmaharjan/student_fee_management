@@ -46,7 +46,7 @@ window.onload = async function () {
 
         async function editBatchName() {
             const newBatch = edit_batch.value;
-            console.log(batch_id)
+            console.log(batch_id) //batch_id is set in batch.ejs page and hence is taken in this page
             try {
               const editData = await fetch(url + 'api/batch/update/' + batch_id, {
                 method: 'PUT',

@@ -1,67 +1,134 @@
 window.onload = function () {
-    const amount = document.getElementById('fee_amount').value;
-      const feeDate1 = document.getElementById('fee_date');
-      const feeDate = feeDate1.value;
-      const dueDate1 = document.getElementById('due_date');
-      const dueDate = dueDate1.value;
-      const select = document.getElementById('select_batch');
-      const url = "http://localhost:3000/"
-      fetch(url + 'api/batch', {
-          headers: {
-              "authorization": localStorage.getItem('Token')
-          }
-      })
-          .then(data => {
-              return data.json()
-          })
-          .then(json => {
-              if (json.name === "JsonWebTokenError") {
-                  alert("You are not authorized.\nPlease Login First")
-    window.location.href = '/';
-  }
-              const list = document.getElementById('list');
-              for (let i = 0; i < json.length; i++) {
-                  const option = document.createElement('OPTION'),
-                      txt = document.createTextNode(json[i].batch_name);
-                  option.appendChild(txt);
-                  option.setAttribute("value", json[i]);
-                  select.insertBefore(option, select.lastChild);
-              }
-          })
-          .catch(err =>{
-              console.log(err);
-              alert(err)
-          })
+    const edit_fee = document.getElementById('edit_fee');
+    const select = document.getElementById('select_batch');
+    const selectFeeType = document.getElementById('select_fee_type');
+    const feeTitle = document.getElementById('fee_title');
+    const fee_table = document.getElementById('fee_table');
+    const searchButton = document.getElementById('searchForFeeBtn');
 
-      function onClick(event) {
-          const val = select.selectedIndex;
-          const batch = select.options[val].innerText;
-      
-          // console.log(batch)
-          fetch(url + 'api/students/batch/' + batch)
-              .then(data => {
-                  return data.json()
-              })
-              .then(json => {
-                  const select_student = document.getElementById('select_student_fee');
-                  
-                  select_student.options.length = null;  //to clear the elements in drop down menu.
+    searchButton.addEventListener('click', onClick)
+    edit_fee.addEventListener('click', editFee)
 
-                if(json.length>0){
-                  for (let i = 0; i < json.length; i++) {
-                      const option = document.createElement('OPTION'),
-                          txt = document.createTextNode(json[i].student_id);
-                      option.appendChild(txt);
-                      option.setAttribute("value", json[i]);
-                      select_student.insertBefore(option, select_student.firstChild);
-                  }
 
-              })
-              .catch(error => {
-                  console.log(error)
-                  alert(error)
-              })
-      }
+    const url = "http://localhost:3000/"
+    fetch(url + 'api/batch', {
+        headers: {
+            "authorization": localStorage.getItem('Token')
+        }
+    })
+        .then(data => {
+            return data.json()
+        })
+        .then(json => {
+            if (json.name === "JsonWebTokenError") {
+                alert("You are not authorized.\nPlease Login First")
+                window.location.href = '/';
+            }
+            const list = document.getElementById('list');
+            for (let i = 0; i < json.length; i++) {
+                const option = document.createElement('OPTION'),
+                    txt = document.createTextNode(json[i].batch_name);
+                option.appendChild(txt);
+                option.setAttribute("value", json[i]);
+                select.insertBefore(option, select.lastChild);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            alert(err)
+        })
+
+    async function onClick(event) {
+        let txt = '';
+        txt += '<tr>'
+        txt += '<td>' + "No data" + '</td>';
+        txt += '<td>' + "No data" + '</td>';
+        txt += '<td>' + "No data" + '</td>';
+        txt += '<td>' + "No data" + '</td>';
+        txt += '<td>' + "No data" + '</td>';
+        txt += '<td></td>';
+        txt += '<td></td>';
+        txt += '</tr>';
+        fee_table.innerHTML = txt;
+        try {
+            const val = select.selectedIndex;
+            const batch = select.options[val].innerText;
+
+            const feeVal = selectFeeType.selectedIndex;
+            const feeValue = selectFeeType.options[feeVal].innerText;
+            let feeStat = 3;
+            if (feeValue === "Due") {
+                feeStat = 1;
+                feeTitle.innerHTML = "Due Fee"
+            }
+            else {
+                feeStat = 0;
+                feeTitle.innerHTML = "Paid Fee"
+            }
+            console.log(feeStat)
+
+            // console.log(batch)
+            const feeRes = await fetch(url + 'api/fee/' + batch + '/' + feeStat);
+            const feeData = await feeRes.json();
+            console.log(feeData)
+            txt = '';
+            if (feeStat == 1) {
+                for (let x = 0; x < feeData.length; x++) {
+                    txt += '<tr>'
+                    txt += '<td>' + Number(x + 1) + '</td>';
+                    const feeStudent = await fetch(url + 'api/students/' + feeData[x].student_id)
+                    const feeStudentRes = await feeStudent.json();
+                    txt += '<td>' + feeStudentRes[0].student_name + '</td>';
+                    txt += '<td>' + feeData[x].amount + '</td>';
+                    txt += '<td>' + feeData[x].fee_date + '</td>';
+                    txt += '<td>' + feeData[x].due_date + '</td>';
+                    txt += '<td><div style = "width:2px; word-wrap: break-word"><a class="btn btn-success " ';
+                    txt += 'data-value="' + feeData[x].id + '" ';
+                    txt += 'data-toggle="modal" data-target="#addFeeModal" onclick ="editFee(' + feeData[x].id + ')">';
+                    txt += '<i class="fa fa-pencil"></i>';
+                    txt += '</a></div></td>';
+                    txt += '<td></td>';
+                    txt += '</tr>';
+                    fee_table.innerHTML = txt;
+                }
+            }
+            else{
+                for (let x = 0; x < feeData.length; x++) {
+                    txt += '<tr>'
+                    txt += '<td>' + Number(x + 1) + '</td>';
+                    const feeStudent = await fetch(url + 'api/students/' + feeData[x].student_id)
+                    const feeStudentRes = await feeStudent.json();
+                    txt += '<td>' + feeStudentRes[0].student_name + '</td>';
+                    txt += '<td>' + feeData[x].amount + '</td>';
+                    txt += '<td>' + feeData[x].fee_date + '</td>';
+                    txt += '<td>' + feeData[x].due_date + '</td>';
+                    txt += '<td></td>';
+                    txt += '<td></td>';
+                    txt += '</tr>';
+                    fee_table.innerHTML = txt;
+                }
+            }
+        }
+        catch (err) {
+            alert(err)
+        }
+
+        // const select_student = document.getElementById('select_student_fee');
+
+        // select_student.options.length = null;  //to clear the elements in drop down menu.
+
+        // if (json.length > 0) {
+        //     for (let i = 0; i < json.length; i++) {
+        //         const option = document.createElement('OPTION'),
+        //             txt = document.createTextNode(json[i].student_id);
+        //         option.appendChild(txt);
+        //         option.setAttribute("value", json[i]);
+        //         select_student.insertBefore(option, select_student.firstChild);
+        //     }
+        // }
+
+
+    }
 
 
       //function for converting month to month name
@@ -92,51 +159,73 @@ window.onload = function () {
       }
       //for adding fee
 
-      function submitFee(event) {
-          const date_fee = showdate(feeDate);
-          alert(date_fee)
-          alert(feeDate)
-          const date_due = showdate(dueDate);
-          const val = select.selectedIndex;
-          const batch = select.options[val].innerText;
-          const studentId = student_id.selectedIndex;
-          const id_student = student_id.options[studentId].innerText;
+      async function editFee(event) { 
+          // these nodes are all declared in the fee.ejs file. So don't need to be re-declared due to its const nature
+          const date_fee = showdate(feeDate.value);
+          const date_due = showdate(feeDate.value);
+          const batch = document.getElementById('edit_fee').value;
+          const studentId = fee_student_name.value;
+          const newAmount = amount.value;
+          const feeId = closeBtn.value;
+          console.log("Student id is: "+studentId);
 
           console.log("I'm here")
-          fetch(url + "api/fee", {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  batch: batch,
-                  student_id: id_student,
-                  amount: amount,
-                  fee_date: date_fee,
-                  due_date: date_due,
-                  cleared: 'f'
+          const prevData = await fetch(url+ 'api/fee/'+feeId);
+          const prevRes = await prevData.json();
+          console.log(prevRes)
+          if(prevRes[0].amount == newAmount){
+              const putFee = await fetch(url + "api/fee/" + feeId,{
+                  method: 'PUT',
+                  headers:{
+                      'Content-Type':'application/json'
+                  },
+                  body: JSON.stringify({
+                              batch: batch,
+                              student_id: studentId,
+                              amount: newAmount,
+                              fee_date: date_fee,
+                              due_date: date_due,
+                              cleared: 't'
 
+                  })
               })
-          })
-              .then(data => {
-                  return data.json;
-              })
-              .then(json => {
-                  console.log(json)
-                  window.location.href= '/index';
-              })
-              .catch(err => {
-                  console.log(err)
-              })
+              const putRes = await putFee.json();
+              if(putRes.data === 'success'){
+                  alert('Full Payment Done')
+              }
+              else{
+                  alert('Something is wrong!!')
+              }
+          }
+          else{
+              const editAmount = prevRes[0].amount - newAmount;
+              alert(editAmount)
+            const putFee = await fetch(url + "api/fee/" + feeId,{
+                method: 'PUT',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                            batch: batch,
+                            student_id: studentId,
+                            amount: editAmount,
+                            fee_date: date_fee,
+                            due_date: date_due,
+                            cleared: 'f'
+
+                })
+            })
+            const putRes = await putFee.json();
+            console.log(putRes);
+            if(putRes.data === 'success'){
+                alert('Partial Payment Done')
+            }
+            else{
+                alert('Something is wrong!!')
+            }
+          }
+       
 
       }
 
-      const addFeeBtn = document.getElementById('submit_fee');
-      const student_id = document.getElementById('select_student_fee');
-      addFeeBtn.addEventListener('click', submitFee)
-      const searchButton = document.getElementById('search');
-      searchButton.addEventListener('click', onClick)
-
-      
-
-  }
+}
