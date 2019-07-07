@@ -5,9 +5,12 @@ window.onload = function () {
     const feeTitle = document.getElementById('fee_title');
     const fee_table = document.getElementById('fee_table');
     const searchButton = document.getElementById('searchForFeeBtn');
+    const deleteButton = document.getElementById('delete_btn');
+
 
     searchButton.addEventListener('click', onClick)
     edit_fee.addEventListener('click', editFee)
+    deleteButton.addEventListener('click', deleteFee)
 
 
     const url = "http://localhost:3000/"
@@ -230,6 +233,30 @@ window.onload = function () {
         }
 
 
+    }
+
+    async function deleteFee(event) {
+        let fee_id = closeBtn.value;
+        if (confirm('Are you sure?')) {
+            try {
+                const deleteData = await fetch(url + 'api/fee/delete/' + fee_id, {
+                    method: 'delete'
+                })
+                const deleteRes = await deleteData.json();
+                console.log(deleteRes)
+                if(deleteRes.status === 'true'){
+                    alert("Deleted Fee")
+                    window.location.href = '/fee'
+                    }
+                    else{
+                        alert("Couldn't Delete.\nPlease see console log")
+                        console.log(deleteRes)
+                    }
+            }
+            catch (err) {
+                alert(err)
+            }
+        }
     }
 
 }

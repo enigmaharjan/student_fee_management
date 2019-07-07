@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="close_btn" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="delete_btn" class="btn btn-danger" data-dismiss="modal">Delete</button>
                         <button id="edit_fee">Edit Fee</button>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
             const fee_student_name = document.getElementById('fee_student_name'); //to set value in the modal span
             const feeDate = document.getElementById('fee_date');
             const dueDate = document.getElementById('due_date');
-            const closeBtn = document.getElementById('close_btn');
+            const closeBtn = document.getElementById('delete_btn');
             const amount = document.getElementById('fee_amount');
             async function editFee(id) {
                 const feeData = await fetch(url + 'fee/' + id);
