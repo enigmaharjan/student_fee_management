@@ -14,21 +14,27 @@ window.onload = function () {
             },
             body: JSON.stringify({
                 username: username,
-                password: password
+                password: password,
+                designation:'admin'
             })
         })
             .then(data => {
                 return data.json();
             })
             .then(json => {
+                // console.log(json)
+                // alert(json.message)
                 if (json.success === 'true') {
                     localStorage.setItem('Token', json.accessToken);
                     localStorage.setItem('username', username)
-                    alert(json.accessToken);
+                    alert(json.message)
+                    alert('Token: ' + json.accessToken);
                     window.location.href = '/'
                 }
                 else {
-                    alert('Invalid Credentials!!');
+                    if(json.success === 'false'){
+                        alert(json.message)
+                    }
                 }
             })
             .catch(err => {

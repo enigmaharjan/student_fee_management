@@ -92,7 +92,7 @@ window.onload = function () {
                     fee_table.innerHTML = txt;
                 }
             }
-            else{
+            else {
                 for (let x = 0; x < feeData.length; x++) {
                     txt += '<tr>'
                     txt += '<td>' + Number(x + 1) + '</td>';
@@ -113,119 +113,123 @@ window.onload = function () {
             alert(err)
         }
 
-        // const select_student = document.getElementById('select_student_fee');
-
-        // select_student.options.length = null;  //to clear the elements in drop down menu.
-
-        // if (json.length > 0) {
-        //     for (let i = 0; i < json.length; i++) {
-        //         const option = document.createElement('OPTION'),
-        //             txt = document.createTextNode(json[i].student_id);
-        //         option.appendChild(txt);
-        //         option.setAttribute("value", json[i]);
-        //         select_student.insertBefore(option, select_student.firstChild);
-        //     }
-        // }
-
-
     }
 
 
-      //function for converting month to month name
-      function showdate(date) {
-          const dateString = date;
+    //function for converting month to month name
+    function showdate(date) {
+        const dateString = date;
 
-          var months = new Array();
-          months[0] = "Jan";
-          months[1] = "Feb";
-          months[2] = "Mar";
-          months[3] = "Apr";
-          months[4] = "May";
-          months[5] = "Jun";
-          months[6] = "Jul";
-          months[7] = "Aug";
-          months[8] = "Sep";
-          months[9] = "Oct";
-          months[10] = "Nov";
-          months[11] = "Dec";
+        var months = new Array();
+        months[0] = "Jan";
+        months[1] = "Feb";
+        months[2] = "Mar";
+        months[3] = "Apr";
+        months[4] = "May";
+        months[5] = "Jun";
+        months[6] = "Jul";
+        months[7] = "Aug";
+        months[8] = "Sep";
+        months[9] = "Oct";
+        months[10] = "Nov";
+        months[11] = "Dec";
 
-          const newdate = new Date(dateString);
-          const month = months[newdate.getMonth()];
-          //converting the date into array
-          const dateArr = dateString.split("-");
-          //setting up the new date form
-          const forDate =  month  + " " + dateArr[2] + ", " + dateArr[0];
-          return forDate;
-      }
-      //for adding fee
+        const newdate = new Date(dateString);
+        const month = months[newdate.getMonth()];
+        //converting the date into array
+        const dateArr = dateString.split("-");
+        //setting up the new date form
+        const forDate = month + " " + dateArr[2] + ", " + dateArr[0];
+        return forDate;
+    }
+    //for adding fee
 
-      async function editFee(event) { 
-          // these nodes are all declared in the fee.ejs file. So don't need to be re-declared due to its const nature
-          const date_fee = showdate(feeDate.value);
-          const date_due = showdate(feeDate.value);
-          const batch = document.getElementById('edit_fee').value;
-          const studentId = fee_student_name.value;
-          const newAmount = amount.value;
-          const feeId = closeBtn.value;
-          console.log("Student id is: "+studentId);
+    async function editFee(event) {
+        // these nodes are all declared in the fee.ejs file. So don't need to be re-declared due to its const nature
+        const date_fee = showdate(feeDate.value);
+        const date_due = showdate(feeDate.value);
+        const batch = document.getElementById('edit_fee').value;
+        const studentId = fee_student_name.value;
+        const newAmount = amount.value;
+        const feeId = closeBtn.value;
+        console.log("Student id is: " + studentId);
 
-          console.log("I'm here")
-          const prevData = await fetch(url+ 'api/fee/'+feeId);
-          const prevRes = await prevData.json();
-          console.log(prevRes)
-          if(prevRes[0].amount == newAmount){
-              const putFee = await fetch(url + "api/fee/" + feeId,{
-                  method: 'PUT',
-                  headers:{
-                      'Content-Type':'application/json'
-                  },
-                  body: JSON.stringify({
-                              batch: batch,
-                              student_id: studentId,
-                              amount: newAmount,
-                              fee_date: date_fee,
-                              due_date: date_due,
-                              cleared: 't'
-
-                  })
-              })
-              const putRes = await putFee.json();
-              if(putRes.data === 'success'){
-                  alert('Full Payment Done')
-              }
-              else{
-                  alert('Something is wrong!!')
-              }
-          }
-          else{
-              const editAmount = prevRes[0].amount - newAmount;
-              alert(editAmount)
-            const putFee = await fetch(url + "api/fee/" + feeId,{
+        console.log("I'm here")
+        const prevData = await fetch(url + 'api/fee/' + feeId);
+        const prevRes = await prevData.json();
+        console.log(prevRes)
+        if (prevRes[0].amount == newAmount) {
+            const putFee = await fetch(url + "api/fee/" + feeId, {
                 method: 'PUT',
-                headers:{
-                    'Content-Type':'application/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                            batch: batch,
-                            student_id: studentId,
-                            amount: editAmount,
-                            fee_date: date_fee,
-                            due_date: date_due,
-                            cleared: 'f'
+                    batch: batch,
+                    student_id: studentId,
+                    amount: newAmount,
+                    fee_date: date_fee,
+                    due_date: date_due,
+                    cleared: 't'
+
+                })
+            })
+            const putRes = await putFee.json();
+            if (putRes.data === 'success') {
+                alert('Full Payment Done')
+                window.location.href = '/fee'
+            }
+            else {
+                alert('Something is wrong!!')
+            }
+        }
+        else {
+            const editAmount = prevRes[0].amount - newAmount;
+            const paidFee = await fetch(url + 'api/fee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    batch: batch,
+                    student_id: studentId,
+                    amount: editAmount,
+                    fee_date: date_fee,
+                    due_date: date_due,
+                    amount: newAmount,
+                    cleared: 't'
+
+                })
+            })
+            const paidFeeRes = await paidFee;
+            console.log(paidFeeRes);
+            const putFee = await fetch(url + "api/fee/" + feeId, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    batch: batch,
+                    student_id: studentId,
+                    amount: editAmount,
+                    fee_date: date_fee,
+                    due_date: date_due,
+                    cleared: 'f'
 
                 })
             })
             const putRes = await putFee.json();
             console.log(putRes);
-            if(putRes.data === 'success'){
+            if (putRes.data === 'success') {
                 alert('Partial Payment Done')
+                window.location.href = '/fee'
             }
-            else{
+            else {
                 alert('Something is wrong!!')
             }
-          }
-       
+        }
 
-      }
+
+    }
 
 }

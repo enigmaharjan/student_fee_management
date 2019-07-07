@@ -18,10 +18,12 @@ window.onload = async function () {
         const guardian_contactDOM = document.getElementById('add_student_guardian_contact');
         const dobDOM = document.getElementById('add_student_date_of_birth');
         const djoinedDOM = document.getElementById('add_student_date_joined');
+        const deleteStudent = document.getElementById('delete_student');
 
         //setting event listener on DOM
         searchBtn.addEventListener('click', viewStudent);
         edit_student_submit.addEventListener('click', editStudent);
+        deleteStudent.addEventListener('click', delete_Student)
 
         //setting the JWT in variable
         const headers = {
@@ -158,6 +160,30 @@ window.onload = async function () {
             //setting up the new date form
             const forDate = month + " " + dateArr[2] + ", " + dateArr[0];
             return forDate;
+        }
+
+        async function delete_Student(event){
+            let student_id = student_idDOM.value;
+            if (confirm('Are you sure?')) {
+                try{
+                const result = await fetch(url + 'api/students/delete/'+student_id,{
+                    method:'delete'
+                  })
+                  const resData = await result.json();
+                  if(resData.status === 'true'){
+                  alert("Deleted Student")
+                  window.location.href = '/student'
+                  }
+                  else{
+                      alert("Couldn't Delete.\nPlease see console log")
+                      console.log(resData)
+                  }
+                }
+                catch(err){
+                    alert(err)
+                }
+              }
+
         }
     }
     catch (err) {

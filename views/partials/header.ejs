@@ -59,14 +59,18 @@ function getLoggedOut(event){
           }
         }
 
- 
-  fetch("http://localhost:3000/api/students/" + localStorage.getItem("username"))
-  .then(data=>{
-    return data.json()
-  })
-  .then(json=>{
+ //----this is done when there is need to fetch data from database
+  // fetch("http://localhost:3000/api/students/" + localStorage.getItem("username"))
+  // .then(data=>{
+  //   return data.json()
+  // })
+  // .then(json=>{
+  //   const uname = document.getElementById('username_header')
+  //   uname.innerText = json[0].student_name;
+  // })
+
+  //this is done since there is no need to fetch data from db.
     const uname = document.getElementById('username_header')
-    uname.innerText = json[0].student_name;
-  })
+    uname.innerText = localStorage.getItem("username");
 
 </script>
