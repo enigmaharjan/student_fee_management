@@ -12,6 +12,7 @@
 
   <header>
     <% include ../partials/header %>
+    <link rel="stylesheet" href="../../styles/css/validation.css">
   </header>
 
   <header id="main-header" class="py-2 bg-success text-white">
@@ -89,7 +90,7 @@
           <fieldset>
             <div class="form-group">
               <label for="title">Batch Name</label>
-              <input id="add_batch_name" type="text" class="form-control" placeholder="Edit Batch Name">
+              <input id="add_batch_name" type="text" class="form-control validate-input" data-validate="Please insert number only" placeholder="Edit Batch Name">
             </div>
             <div class="modal-footer">
               <button id="edit_batch_name" name="submit" type="submit" class="btn btn-success">Edit</button>

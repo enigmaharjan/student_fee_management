@@ -260,28 +260,36 @@ window.onload = async function () {
     addBatch.addEventListener('click', addBatchName);
 
     function addBatchName(event) {
-        let batch_name = document.getElementById('add_batch_name').value;
-        fetch(url + 'api/batch', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                batch_name: batch_name
+            let batch_name = document.getElementById('add_batch_name').value;
+            fetch(url + 'api/batch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "authorization": localStorage.getItem('Token')
+                },
+                body: JSON.stringify({
+                    batch_name: batch_name
+                })
             })
-        })
-            .then(data => {
-                return JSON.stringify(data);
-            })
-            .then(json => {
-                alert("Batch added");
-                window.location.href = '/'
-                return json
-            })
-            .catch(err => {
-                alert(err);
-                console.log(err);
-            })
+                .then(data => {
+                    return JSON.stringify(data);
+                })
+                .then(json => {
+                    if (json.name === "JsonWebTokenError") {
+                        alert("You are not authorized.\nPlease Login First")
+                        window.location.href = '/login';
+                    }
+                    else{
+                    alert("Batch added");
+                    window.location.href = '/'
+                    return json
+                    }
+                })
+                .catch(err => {
+                    alert(err);
+                    console.log(err);
+                })
+        
     }
 
     //Getting the side pane element 
@@ -346,7 +354,7 @@ window.onload = async function () {
         let txt = '';
         for (let x = 0; x < studentRes.length; x++) {
             txt += '<tr>'
-            txt += '<td>' + Number(x+1) + '</td>';
+            txt += '<td>' + Number(x + 1) + '</td>';
             txt += '<td>' + studentRes[x].student_name + '</td>';
             txt += '<td>' + studentRes[x].batch + '</td>';
             txt += '<td>' + studentRes[x].contact_number + '</td>';
