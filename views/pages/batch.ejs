@@ -130,7 +130,7 @@
         })
         const delRes = await delData.json();
         console.log(delRes)
-        if(delRes.status === "deleted"){
+        if(delRes.status === "true"){
           alert("Deleted Successfully")
           window.location.href = '/batch'
         }
