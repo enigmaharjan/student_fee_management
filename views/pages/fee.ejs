@@ -115,7 +115,7 @@
                         <label class="col-md-3 control-label">Amount</label>
                         <div class="col-md-12 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i
-                                        class="fa fa-gbp"></i></span><input id="fee_amount" name="amount"
+                                        class="fa fa-gbp"></i></span><input id="fee_amount" required name="amount"
                                     placeholder="Amount" class="form-control" required="true" value="" type="number">
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                         <label class="col-md-3 control-label">Fee Date</label>
                         <div class="col-md-12 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i
-                                        class="fa fa-calendar"></i></span><input id="fee_date" name="fee_date"
+                                        class="fa fa-calendar"></i></span><input id="fee_date" required name="fee_date"
                                     placeholder="MM/DD/YYY" type="date" value="" class="form-control" required="true">
                             </div>
                         </div>
@@ -134,13 +134,13 @@
                         <label class="col-md-3 control-label">Due Date</label>
                         <div class="col-md-12 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i
-                                        class="fa fa-calendar"></i></span><input id="due_date" name="due_date"
+                                        class="fa fa-calendar"></i></span><input id="due_date" required name="due_date"
                                     placeholder="MM/DD/YYY" type="date" class="form-control" required="true"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button id="delete_btn" class="btn btn-danger" data-dismiss="modal">Delete</button>
-                        <button id="edit_fee">Edit Fee</button>
+                        <button id="edit_fee" class="btn btn-success" >Edit Fee</button>
                     </div>
                 </div>
             </div>

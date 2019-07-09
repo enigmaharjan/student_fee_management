@@ -44,7 +44,12 @@ window.onload = async function () {
             alert(err)
         }
 
+        
         async function editBatchName() {
+          // if(edit_batch.value == ''){
+          //   alert('I expect a batch name');
+          // }
+          // else{
             const newBatch = edit_batch.value;
             console.log(batch_id) //batch_id is set in batch.ejs page and hence is taken in this page
             try {
@@ -72,6 +77,7 @@ window.onload = async function () {
               alert(err)
             }
           }
+        // }
     }
     catch (err) {
         alert(err)

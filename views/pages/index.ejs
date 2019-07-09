@@ -173,7 +173,7 @@
                       <div class="col-md-12 inputGroupContainer">
                         <div class="input-group"><span class="input-group-addon"><i
                               class="fa fa-envelope"></i></span><input id="add_student_email" name="add_student_email"
-                            placeholder="Email" class="form-control" required="true" value="" type="email"></div>
+                            placeholder="Email" class="form-control" required="true" value=""  type="email"></div>
                       </div>
                     </div>
                     <div class="form-group">
@@ -182,7 +182,7 @@
                         <div class="input-group"><span class="input-group-addon"><i
                               class="fa fa-phone"></i></span><input id="add_student_contact_number"
                             name="add_student_contact_number" placeholder="Phone Number" class="form-control"
-                            required="true" value="" type="number">
+                            required="true" value=""  type="number">
                         </div>
                       </div>
                     </div>
@@ -191,7 +191,7 @@
                       <div class="col-md-12 inputGroupContainer">
                         <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input
                             id="add_student_guardian_name" name="add_student_guardian_name" placeholder="Guardian Name"
-                            class="form-control" required="true" value="" type="text">
+                            class="form-control" required="true" value=""  type="text">
                         </div>
                       </div>
                     </div>
@@ -201,7 +201,7 @@
                         <div class="input-group"><span class="input-group-addon"><i
                               class="fa fa-phone"></i></span><input id="add_student_guardian_contact"
                             name="add_student_guardian_contact" placeholder="Guardian Phone Number" class="form-control"
-                            required="true" value="" type="number"></div>
+                            required="true" value=""  type="number"></div>
                       </div>
                     </div>
                     <div class="form-group">
@@ -209,7 +209,7 @@
                       <div class="col-md-12 inputGroupContainer">
                         <div class="input-group"><span class="input-group-addon"><i
                               class="fa fa-calendar"></i></span><input id="add_student_date_of_birth"
-                            name="add_student_date_of_birth" placeholder="MM/DD/YYY" type="date" class="form-control"
+                            name="add_student_date_of_birth" placeholder="MM/DD/YYY"  type="date" class="form-control"
                             required="true"></div>
                       </div>
                     </div>
@@ -218,15 +218,15 @@
                       <div class="col-md-12 inputGroupContainer">
                         <div class="input-group"><span class="input-group-addon"><i
                               class="fa fa-calendar"></i></span><input id="add_student_date_joined"
-                            name="add_student_date_joined" placeholder="MM/DD/YYY" type="date" class="form-control"
+                            name="add_student_date_joined" placeholder="MM/DD/YYY"  type="date" class="form-control"
                             required="true"></div>
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button id="add_student_submit" name="submit" type="submit"
+                      <button id="add_student_submit" name="submit"  type="submit"
                         class="btn btn-success">Submit</button>
                       <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <!-- <button id="reset" name="reset" type="reset" class="btn btn-danger">Reset</button> -->
+                      <!-- <button id="reset" name="reset" required type="reset" class="btn btn-danger">Reset</button> -->
                     </div>
                   </fieldset>
                 </td>
@@ -250,7 +250,7 @@
           <fieldset>
             <div class="form-group">
               <label for="title">Batch Name</label>
-              <input id="add_batch_name" type="text" class="form-control" id="batch" placeholder="Insert Batch Name">
+              <input id="add_batch_name" required type="text" class="form-control" id="batch" placeholder="Insert Batch Name">
             </div>
             <div class="modal-footer">
               <button id="submit_batch_name" name="submit" type="submit" class="btn btn-success">Submit</button>
@@ -327,7 +327,7 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="submit_fee">Add Fee</button>
+            <button class="btn btn-success" id="submit_fee">Add Fee</button>
           </div>
         </div>
       </div>

@@ -91,6 +91,7 @@ window.onload = async function () {
 
         
         function editStudent(event) {
+            // if(student_nameDOM.value || contactDOM.value || addressDOM.value || emailDOM.value || guardian_contactDOM.value || guardian_nameDOM.value == '')
             const student_name = student_nameDOM.value;
             const student_id = student_idDOM.value;
             const contact = contactDOM.value;

@@ -103,14 +103,11 @@ window.onload = async function () {
         let dueDate1 = document.getElementById('due_date');
         let dueDate = dueDate1.value;
         let date_fee = showdate(feeDate);
-        alert(date_fee)
-        alert(feeDate)
         let date_due = showdate(dueDate);
         let val = select.selectedIndex;
         let batch = select.options[val].innerText;
         let studentId = student_id.selectedIndex;
         let id_student = student_id.options[studentId].innerText;
-        alert("Did you fetch??")
         console.log("I'm here")
         fetch(url + "api/fee", {
             method: 'POST',

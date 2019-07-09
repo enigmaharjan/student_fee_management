@@ -148,9 +148,13 @@ window.onload = function () {
     //for adding fee
 
     async function editFee(event) {
+        if(amount.value ==''){
+            alert('Insert Amount')
+        }
+        else{
         // these nodes are all declared in the fee.ejs file. So don't need to be re-declared due to its const nature
         const date_fee = showdate(feeDate.value);
-        const date_due = showdate(feeDate.value);
+        const date_due = showdate(dueDate.value);
         const batch = document.getElementById('edit_fee').value;
         const studentId = fee_student_name.value;
         const newAmount = amount.value;
@@ -231,8 +235,7 @@ window.onload = function () {
                 alert('Something is wrong!!')
             }
         }
-
-
+    }
     }
 
     async function deleteFee(event) {
